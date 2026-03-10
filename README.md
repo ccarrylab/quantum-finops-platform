@@ -641,8 +641,9 @@ Senior Cloud Architect & FinOps Innovator
 
 - 🌐 Portfolio: [chaos.ccarrylab.com](https://chaos.ccarrylab.com)
 - 💼 LinkedIn: [linkedin.com/in/cohencarryl](https://linkedin.com/in/cohencarryl)
-- 📧 Email: cohen@ccarrylab.com
-- 🐙 GitHub: [@lightson4221](https://github.com/lightson4221)
+- 📧 Email: cohen.carryl@gmail.com
+- 🐙 GitHub: [@ccarrylab](https://github.com/ccarrylab)
+- 🚀 QuantumFinOps: [github.com/ccarrylab/quantum-finops-platform](https://github.com/ccarrylab/quantum-finops-platform)
 
 ---
 
