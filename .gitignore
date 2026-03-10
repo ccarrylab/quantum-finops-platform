@@ -1,36 +1,22 @@
-# Virtual environments - CRITICAL
-venv/
+# Virtual environments
 venv*/
 env/
-ENV/
 pythonenv/
 
 # Terraform
 .terraform/
-.terraform.lock.hcl
-terraform.tfstate
-terraform.tfstate.backup
+*.tfstate*
 *.tfvars
-!terraform.tfvars.example
+!*.tfvars.example
 
 # Python
 __pycache__/
-*.py[cod]
-*.so
-.Python
-*.egg-info/
-
-# IDEs
-.vscode/
-.idea/
-*.swp
+*.pyc
 
 # OS
 .DS_Store
-Thumbs.db
 
 # Secrets
 *.pem
 *.key
 .env
-secrets.yml
