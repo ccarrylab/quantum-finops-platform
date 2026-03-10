@@ -1,8 +1,8 @@
-# QuantumFinOps Production Environment
-# Deploy the complete ML-driven autonomous FinOps platform
+# Minimal QuantumFinOps - Infrastructure Only
+# Deploy this first, train models later
 
 terraform {
-  required_version = ">= 1.6"
+  required_version = ">= 1.5"
   
   required_providers {
     aws = {
@@ -10,15 +10,6 @@ terraform {
       version = "~> 5.0"
     }
   }
-
-  # Remote state (update bucket name after first apply)
-  # backend "s3" {
-  #   bucket         = "quantum-finops-terraform-state"
-  #   key            = "prod/terraform.tfstate"
-  #   region         = "us-east-1"
-  #   encrypt        = true
-  #   dynamodb_table = "quantum-finops-terraform-locks"
-  # }
 }
 
 provider "aws" {
@@ -29,32 +20,11 @@ provider "aws" {
       Project     = "quantum-finops"
       Environment = "production"
       ManagedBy   = "terraform"
-      Innovation  = "industry-first"
-      Owner       = "cohen-carryl"
     }
   }
 }
 
-# Get current AWS account ID
 data "aws_caller_identity" "current" {}
-
-# ML Cost Predictor Module
-module "ml_cost_predictor" {
-  source = "../../modules/ml-cost-predictor"
-
-  environment               = "prod"
-  region                    = var.region
-  account_id                = data.aws_caller_identity.current.account_id
-  notebook_instance_type    = "ml.t3.medium"
-  inference_instance_type   = "ml.m5.xlarge"
-  inference_instance_count  = 2
-  alert_email               = var.alert_email
-
-  tags = {
-    Component = "ml-cost-prediction"
-    CostCenter = "innovation"
-  }
-}
 
 # S3 Bucket for Cost Data
 resource "aws_s3_bucket" "cost_data" {
@@ -73,13 +43,12 @@ resource "aws_s3_bucket_versioning" "cost_data" {
   }
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "cost_data" {
-  bucket = aws_s3_bucket.cost_data.id
+# S3 Bucket for ML Features
+resource "aws_s3_bucket" "ml_features" {
+  bucket = "quantum-finops-ml-features-${data.aws_caller_identity.current.account_id}"
 
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
+  tags = {
+    Purpose = "ml-feature-store"
   }
 }
 
@@ -93,51 +62,10 @@ resource "aws_cloudwatch_dashboard" "quantum_finops" {
         type = "metric"
         properties = {
           metrics = [
-            ["QuantumFinOps", "CostSavings", { stat = "Sum", period = 86400 }],
-            [".", "CostSpikePrevented", { stat = "Sum", period = 86400 }]
+            ["QuantumFinOps", "CostSavings", { stat = "Sum" }]
           ]
-          period = 86400
-          stat   = "Sum"
           region = var.region
-          title  = "Daily Cost Savings"
-          yAxis = {
-            left = {
-              label = "USD"
-            }
-          }
-        }
-      },
-      {
-        type = "metric"
-        properties = {
-          metrics = [
-            ["QuantumFinOps", "PredictionAccuracy", { stat = "Average", period = 3600 }],
-            [".", "FalsePositiveRate", { stat = "Average", period = 3600 }]
-          ]
-          period = 3600
-          stat   = "Average"
-          region = var.region
-          title  = "ML Model Performance"
-          yAxis = {
-            left = {
-              label = "Percentage"
-              min   = 0
-              max   = 100
-            }
-          }
-        }
-      },
-      {
-        type = "metric"
-        properties = {
-          metrics = [
-            ["AWS/Lambda", "Invocations", { stat = "Sum", period = 300 }],
-            [".", "Errors", { stat = "Sum", period = 300 }]
-          ]
-          period = 300
-          stat   = "Sum"
-          region = var.region
-          title  = "System Health"
+          title  = "Cost Savings"
         }
       }
     ]
@@ -145,35 +73,45 @@ resource "aws_cloudwatch_dashboard" "quantum_finops" {
 }
 
 # SNS Topic for Alerts
-resource "aws_sns_topic" "quantum_finops_alerts" {
+resource "aws_sns_topic" "alerts" {
   name = "quantum-finops-alerts-prod"
-
-  tags = {
-    Purpose = "cost-anomaly-alerts"
-  }
 }
 
-resource "aws_sns_topic_subscription" "alerts_email" {
+resource "aws_sns_topic_subscription" "email" {
   count     = var.alert_email != "" ? 1 : 0
-  topic_arn = aws_sns_topic.quantum_finops_alerts.arn
+  topic_arn = aws_sns_topic.alerts.arn
   protocol  = "email"
   endpoint  = var.alert_email
 }
 
-# CloudWatch Alarm - High Cost Spike
-resource "aws_cloudwatch_metric_alarm" "cost_spike" {
-  alarm_name          = "quantum-finops-cost-spike-detected"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "PredictedCostSpike"
-  namespace           = "QuantumFinOps"
-  period              = 900
-  statistic           = "Maximum"
-  threshold           = 50.0  # 50% spike threshold
-  alarm_description   = "Cost spike predicted - auto-remediation triggered"
-  alarm_actions       = [aws_sns_topic.quantum_finops_alerts.arn]
+output "cost_data_bucket" {
+  value = aws_s3_bucket.cost_data.id
+}
 
-  tags = {
-    Severity = "high"
-  }
+output "ml_features_bucket" {
+  value = aws_s3_bucket.ml_features.id
+}
+
+output "dashboard_url" {
+  value = "https://console.aws.amazon.com/cloudwatch/home?region=${var.region}#dashboards:name=${aws_cloudwatch_dashboard.quantum_finops.dashboard_name}"
+}
+
+output "next_steps" {
+  value = <<-EOT
+  
+  ✅ QuantumFinOps Infrastructure Deployed!
+  
+  S3 Buckets Created:
+  - Cost Data: ${aws_s3_bucket.cost_data.id}
+  - ML Features: ${aws_s3_bucket.ml_features.id}
+  
+  Dashboard: ${aws_cloudwatch_dashboard.quantum_finops.dashboard_name}
+  Alerts: ${var.alert_email}
+  
+  Next Steps:
+  1. Upload your cost data to: s3://${aws_s3_bucket.cost_data.id}
+  2. View dashboard at: https://console.aws.amazon.com/cloudwatch
+  3. Later: Deploy SageMaker ML model when ready
+  
+  EOT
 }
