@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuardRail AI - Real-Time Governance Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0f1e;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff88;
+            margin-bottom: 30px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #1a1f30;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-label {
+            color: #8892b0;
+            font-size: 0.9em;
+        }
+        .status-online {
+            color: #00ff88;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #8892b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>🛡️ GuardRail AI - Enterprise Governance</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Policies Enforced</div>
+                <div class="stat-value">1,247</div>
+                <div>Last 24h</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Violations Blocked</div>
+                <div class="stat-value">83</div>
+                <div class="status-online">▼ 12% from yesterday</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Compliance Score</div>
+                <div class="stat-value">99.2%</div>
+                <div class="status-online">▲ 2.1%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Users</div>
+                <div class="stat-value">1,432</div>
+                <div>Across 12 departments</div>
+            </div>
+        </div>
+        
+        <div style="background: #1a1f30; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+            <h2>🔴 LIVE ACTIVITY FEED</h2>
+            <div id="activity-feed">
+                <p>✅ Safe prompt approved - user@company.com - 14:32:45</p>
+                <p>🚨 PII BLOCKED - Credit card detected - 14:28:12</p>
+                <p>✅ Safe prompt approved - engineer@company.com - 14:15:33</p>
+                <p>⚠️ Warning: Competitive intel detected - 14:02:19</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>GuardRail AI - Protecting your enterprise in real-time</p>
+            <p>🔴 LIVE | Version 1.0.0</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,11 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+venv311/
+*.egg-info/
+dist/
+
 # Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
-*.tfvars
-.terraform.lock.hcl
+*.tfplan
+*.lock.hcl
+crash.log
+terraform/*.backup
 
-# Secrets
-*.pem
-*.key
-.env
+# AWS
+.aws/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test files
+*.json
+*.log
+*.backup
+*.backup.*
+
+# Lambda zips
+*.zip
+!dist/README.md
