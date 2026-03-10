@@ -1,39 +1,67 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+!terraform.tfvars.example
+
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
 .Python
+env/
 venv/
-venv311/
+pythonenv/
 *.egg-info/
-dist/
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.*
-*.tfplan
-*.lock.hcl
-crash.log
-terraform/*.backup
+# Virtual environments
+.venv/
+ENV/
+env.bak/
+venv.bak/
 
-# AWS
-.aws/
-
-# IDE
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.project
+.classpath
+.settings/
+
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
 
-# Test files
-*.json
+# Logs
 *.log
-*.backup
-*.backup.*
+logs/
 
-# Lambda zips
-*.zip
-!dist/README.md
+# Secrets & Keys
+*.pem
+*.key
+.env
+secrets.yml
+credentials.json
+*.p12
+*.pfx
+
+# Test outputs
+test-results.html
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+*~
+.*.swp
