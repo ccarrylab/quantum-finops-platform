@@ -129,14 +129,14 @@ quantum-finops-platform/
 
 ## 💼 For Your Resume
 ```
-QuantumFinOps Platform | github.com/ccarrylab/quantum-finops-platform | ✅ DEPLOYED
-- Deployed production ML-driven FinOps infrastructure on AWS
-- Built S3-based cost data lake with CloudWatch monitoring
-- Implemented real-time alerting system via SNS
-- Designed modular Terraform architecture
-- Platform achieves $4.7M annual savings with 99.2% automation
-- 3 patents pending, AWS re:Invent 2026 featured
-- Live dashboard tracking cost optimization metrics
+# QuantumFinOps Platform | github.com/ccarrylab/quantum-finops-platform | ✅ DEPLOYED
+# - Deployed production ML-driven FinOps infrastructure on AWS
+# - Built S3-based cost data lake with CloudWatch monitoring
+# - Implemented real-time alerting system via SNS
+# - Designed modular Terraform architecture
+# - Platform achieves $4.7M annual savings with 99.2% automation
+# - 3 patents pending, AWS re:Invent 2026 featured
+# - Live dashboard tracking cost optimization metrics
 ```
 
 ---
