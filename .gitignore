@@ -1,41 +1,8 @@
-# Terraform
-.terraform/
-.terraform.lock.hcl
-terraform.tfstate
-terraform.tfstate.backup
-*.tfvars
-!terraform.tfvars.example
-
-# Python virtual environments
-venv/
 venv*/
-env/
-ENV/
 pythonenv/
-
-# Python
+.terraform/
+*.tfstate*
+*.tfvars
+!*.tfvars.example
 __pycache__/
-*.py[cod]
-*.pyc
-*.so
-.Python
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
 .DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Secrets
-*.pem
-*.key
-.env
-secrets.yml
-credentials.json
