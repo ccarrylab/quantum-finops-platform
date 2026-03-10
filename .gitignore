@@ -1,3 +1,10 @@
+# Virtual environments - CRITICAL
+venv/
+venv*/
+env/
+ENV/
+pythonenv/
+
 # Terraform
 .terraform/
 .terraform.lock.hcl
@@ -9,59 +16,21 @@ terraform.tfstate.backup
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
 *.so
 .Python
-env/
-venv/
-pythonenv/
 *.egg-info/
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Virtual environments
-.venv/
-ENV/
-env.bak/
-venv.bak/
 
 # IDEs
 .vscode/
 .idea/
 *.swp
-*.swo
-*~
-.project
-.classpath
-.settings/
 
 # OS
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# Logs
-*.log
-logs/
-
-# Secrets & Keys
+# Secrets
 *.pem
 *.key
 .env
 secrets.yml
-credentials.json
-*.p12
-*.pfx
-
-# Test outputs
-test-results.html
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Temporary files
-*.tmp
-*.bak
-*.backup
-*~
-.*.swp
