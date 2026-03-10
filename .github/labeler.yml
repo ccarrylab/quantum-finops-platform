@@ -1,0 +1,16 @@
+terraform:
+  - terraform/**/*
+
+lambda:
+  - lambda/**/*
+
+documentation:
+  - '*.md'
+  - docs/**/*
+
+security:
+  - .github/workflows/*security*
+  - .github/workflows/*scan*
+
+ci/cd:
+  - .github/workflows/**
